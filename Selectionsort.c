@@ -6,10 +6,10 @@ int selectionSort(int size,int array[]){
             if (array[j]<array[minIndex]){
                 minIndex=j;
             }   
-            int temp=array[i];
-            array[i]=array[minIndex];
-            array[minIndex]=temp;
         }   
+        int temp=array[i];
+        array[i]=array[minIndex];
+        array[minIndex]=temp;
     }
 }
 int main(){
