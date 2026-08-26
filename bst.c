@@ -28,6 +28,25 @@ void traversal(node* tree){
 	printf("->");
 	traversal(tree -> right);
 }
+int search (node* tree, int key){
+	if(tree == NULL){return -1;}
+	if(tree -> data == key){return 1;}
+	if(search(tree -> left,key) == 1){return 1;}
+	if(search(tree -> right,key)== 1){return 1;}
+	return -1;
+}
+int findMax(node* tree){
+	while(tree -> right != NULL){
+		tree = tree -> right;
+	}
+	return tree -> data;
+}
+int findMin(node* tree){
+	while(tree -> left != NULL){
+		tree = tree -> left;
+	}
+	return tree -> data;
+}
 int main(){
 	node* tree = NULL;
 	tree = add(tree,12);
@@ -40,6 +59,8 @@ int main(){
 	tree = add(tree,27);
 	tree = add(tree,28);
 	traversal(tree);
-	
+	printf("\nSearch Result : %d\n", search(tree,24));
+	printf("Max value : %d\n", findMax(tree));
+	printf("Min value : %d\n", findMin(tree));
 	return 0;
 }
