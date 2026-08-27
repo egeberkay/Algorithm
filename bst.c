@@ -41,12 +41,38 @@ int findMax(node* tree){
 	}
 	return tree -> data;
 }
-int findMin(node* tree){
+node* findMin(node* tree){
 	while(tree -> left != NULL){
 		tree = tree -> left;
 	}
-	return tree -> data;
+	return tree;
 }
+node*  delete(node* tree,int key){
+	if(tree == NULL){
+		printf("There is no %d number\n",key);
+		return NULL;
+	}
+	if(key < tree -> data){
+		tree -> left = delete(tree -> left, key);
+	}else if(key > tree -> data){
+		tree -> right = delete(tree -> right, key);
+	}else{//Find the node
+		if(tree -> left == NULL){
+			node* temp = tree -> right;
+			free(tree);
+			return temp;
+		}else if(tree -> right == NULL){
+			node* temp = tree -> left;
+			free(tree);
+			return temp;
+		}
+		node* temp = findMin(tree -> right);
+		tree -> data = temp -> data;
+		tree -> right = delete(tree -> right, temp -> data);
+	}
+	return tree;
+}
+
 int main(){
 	node* tree = NULL;
 	tree = add(tree,12);
@@ -62,5 +88,7 @@ int main(){
 	printf("\nSearch Result : %d\n", search(tree,24));
 	printf("Max value : %d\n", findMax(tree));
 	printf("Min value : %d\n", findMin(tree));
+        tree = delete(tree,18);
+	traversal(tree);
 	return 0;
 }
